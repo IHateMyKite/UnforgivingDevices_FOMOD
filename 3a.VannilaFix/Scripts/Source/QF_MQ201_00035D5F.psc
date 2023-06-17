@@ -288,7 +288,7 @@ int loc_itemID = loc_player.GetNumItems()
 UnforgivingDevicesMain loc_UD = Game.GetFormFromFile(0x005901, "UnforgivingDevices.esp") as UnforgivingDevicesMain
 Keyword loc_kw1 = loc_UD.libs.zad_InventoryDevice ;inventory device keyword
 Keyword loc_kw2 = loc_UD.libs.zad_Lockable ;render device keyword
-loc_UD.Print("[UD] Transfering Items. This will take a while")
+loc_UD.Print("[UD] Transferring Items. This will take a while")
 while loc_itemID
 	loc_itemID -= 1
 	bool loc_transfer = true
@@ -307,7 +307,7 @@ while loc_itemID
 		loc_player.removeItem(loc_item,loc_player.GetItemCount(loc_item),true,Alias_PlayerGearContainerDelphine.GetReference())
 	endif
 endwhile
-loc_UD.Print("[UD] Transfere complete")
+loc_UD.Print("[UD] Transfer complete")
 Utility.wait(1.0)
 ; make player board carriage
 Alias_PlayerCarriageMarker.GetRef().Activate(Game.GetPlayer())
