@@ -1,0 +1,1 @@
+!!Read the tutorial at https://www.loverslab.com/files/file/16938-unforgiving-devices !!
