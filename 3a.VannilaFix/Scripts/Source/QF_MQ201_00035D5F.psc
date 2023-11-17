@@ -285,7 +285,7 @@ Function Fragment_106()
 ;DD fix
 Actor loc_player = Game.GetPlayer()
 int loc_itemID = loc_player.GetNumItems()
-UnforgivingDevicesMain loc_UD = Game.GetFormFromFile(0x005901, "UnforgivingDevices.esp") as UnforgivingDevicesMain
+UnforgivingDevicesMain loc_UD = UnforgivingDevicesMain.GetUdMain()
 Keyword loc_kw1 = loc_UD.libs.zad_InventoryDevice ;inventory device keyword
 Keyword loc_kw2 = loc_UD.libs.zad_Lockable ;render device keyword
 loc_UD.Print("[UD] Transferring Items. This will take a while")
@@ -298,7 +298,8 @@ while loc_itemID
 	endif
 	if loc_transfer
 		if loc_item as Armor
-			if loc_item.haskeyword(loc_kw1) || loc_item.haskeyword(loc_kw2)
+			if (loc_item.haskeyword(loc_kw1) || loc_item.haskeyword(loc_kw2)) && loc_player.IsEquipped(loc_item)
+				loc_ud.Info("Equipped device " + loc_item + " found")
 				loc_transfer = false
 			endif
 		endif
@@ -307,6 +308,7 @@ while loc_itemID
 		loc_player.removeItem(loc_item,loc_player.GetItemCount(loc_item),true,Alias_PlayerGearContainerDelphine.GetReference())
 	endif
 endwhile
+
 loc_UD.Print("[UD] Transfer complete")
 Utility.wait(1.0)
 ; make player board carriage
@@ -390,7 +392,7 @@ EndFunction
 Function Fragment_15()
 ;BEGIN CODE
 ; remove everything from player to holding container
-Game.GetPlayer().removeAllItems(Alias_PlayerGearContainerDelphine.GetReference(), true)
+;Game.GetPlayer().removeAllItems(Alias_PlayerGearContainerDelphine.GetReference(), true)
 Alias_PlayerCarriageDriver.GetActorRef().PlayIdle(IdleCartDriverIdle)
 ; player in cart, begin process
 FadeToBlackImod.Apply()
